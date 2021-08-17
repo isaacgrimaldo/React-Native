@@ -3,10 +3,12 @@
 // import ObjetosLiterales from './TS/ObjetosLiterales';
 // import TiposBasicos from './TS/TiposBasicos';
 
-import Contador from "./Components/Contador";
-import ContadorConHook from "./Components/ContadorConHook";
-import Login from "./Components/Login";
-import { Functions } from "./TS/Functions";
+// import Contador from "./Components/Contador";
+// import ContadorConHook from "./Components/ContadorConHook";
+// import { Functions } from "./TS/Functions";
+// import Login from "./Components/Login";
+import Usuarios from "./Components/Usuarios";
+import { Form } from './Components/Form';
 
 const App = () => {
   return (
@@ -18,7 +20,9 @@ const App = () => {
          {/* <Functions/> */}
          {/* <Contador/> */}
          {/* <ContadorConHook/> */}
-         <Login/>
+         {/* <Login/> */}
+         {/* <Usuarios /> */}
+         <Form/>
     </div>
   ) 
 }
