@@ -1,10 +1,10 @@
 import React from 'react'
 import { Text, View } from 'react-native';
 
-export const SettingScreen = () => {
+export const Tab3Screen  = () => {
     return (
         <View>
-            <Text>Setting Screen</Text>
+           <Text>Tab3Screen</Text>
         </View>
     )
 }
