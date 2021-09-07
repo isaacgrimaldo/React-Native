@@ -52,7 +52,6 @@ const BottomTabsAndroid = createMaterialBottomTabNavigator<RootTabParams>();
       tabBarStyle:{
         borderTopColor:colors.ter,
         backgroundColor:colors.six,
-        elevation:0
       },
       tabBarActiveTintColor:colors.fur,
       headerStyle:{
@@ -73,7 +72,7 @@ const BottomTabsAndroid = createMaterialBottomTabNavigator<RootTabParams>();
               icon = <Icon name='logo-nodejs' size= {30} color={'white'} />
           break;
         }
-        return <Text style ={{color , margin:10}}>{icon}</Text>
+        return <Text style ={{color}}>{icon}</Text>
       },
     })}
     >
