@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Text, View } from 'react-native'
 import { styles } from '../themes/appTheme';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParams } from '../navegator/StackNavegator';
+import { AuthContext } from '../context/AuthContex';
 
 //Forma sucia
 // interface ParamsValues{
@@ -20,7 +21,8 @@ interface Props extends StackScreenProps<RootStackParams ,  'PersonaScreen'>{};
 export const PersonaScreen = ( { route,  navigation }:Props ) => {
 
     const params = route.params
-    
+    const { changeUserName } = useContext( AuthContext )
+
     useEffect(() => {
          navigation.setOptions({
              title: params.name,
@@ -31,6 +33,10 @@ export const PersonaScreen = ( { route,  navigation }:Props ) => {
              }  
          })
     }, [])
+    
+    useEffect(() => {
+        changeUserName(params.name)
+    },[])
 
     return (
         <View style = { styles.globalMargin}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerContentScrollView } from '@react-navigation/drawer';
 import {  RootStackParams } from './StackNavegator';
 import { SettingScreen } from '../screens/SettingScreen';
@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { styles, colors } from '../themes/appTheme';
 // import { createStackNavigator } from '@react-navigation/stack';
 import { TabNavegator } from './TabNavegator';
+import { AuthContext } from '../context/AuthContex';
 
 
 const Drawer = createDrawerNavigator();
@@ -39,6 +40,7 @@ export const MenuDeslitPers = () => {
 
 const MenuContent = ( { navigation }:DrawerContentComponentProps) => {
    
+  const {authState:{userName}} = useContext(AuthContext);
   
   return(
      <DrawerContentScrollView style = { styles.menuContainer  } >
@@ -49,6 +51,11 @@ const MenuContent = ( { navigation }:DrawerContentComponentProps) => {
               }}
               style = { styles.avataImg }
            />
+            {
+               (userName !== 'not-userName' && userName ) &&(
+                  <Text style ={styles.textTitle}> Usuario: {userName} </Text>
+               )
+            }
         </View>
 
           <View style= { styles.menuLinksContainer }>
