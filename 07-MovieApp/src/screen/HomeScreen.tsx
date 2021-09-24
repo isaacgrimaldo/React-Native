@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react'
-import { ActivityIndicator, Text, View } from 'react-native'
-import { useMovies } from './useMovies';
+import React from 'react'
+import { ActivityIndicator, Text, useWindowDimensions, View, ScrollView } from 'react-native'
+import Carousel from 'react-native-snap-carousel';
+
+import { useMovies } from '../hooks/useMovies';
 import { colors } from './appTheme';
 import { MovieCard } from './MovieCard';
+import { ListMovies } from './ListMovies';
 
 
 export const HomeScreen = () => {
 
-    const { cinemaMovies , isloading } = useMovies();
+    const { playNow, popular, upComing, topRated ,isloading  } = useMovies();
+    const { width:windowWidth } = useWindowDimensions();
+    const sizeItem = windowWidth / 1.6;
 
     if(isloading){
         return(
@@ -24,8 +29,23 @@ export const HomeScreen = () => {
     }
 
     return (
-        <View>
-             <MovieCard Movie ={cinemaMovies[0]} />
+        <ScrollView style = {{ marginBottom:15  }}>
+
+        <View style ={{ marginTop: 20 }} >
+            <View style = {{ height:380}}>
+             <Carousel
+              data = {playNow}
+              sliderWidth={windowWidth}
+              itemWidth={ sizeItem }
+              renderItem = { ({ item }:any ) => <MovieCard Movie ={ item } />}
+            />
+            </View>
         </View>
+        <View>
+             <ListMovies data = { popular } listName ="Populares" />
+             <ListMovies data = { topRated } listName ="Lo mas valorado" />
+             <ListMovies data = { upComing } listName ="Proximamente" />
+        </View>
+        </ScrollView>
     )
 }

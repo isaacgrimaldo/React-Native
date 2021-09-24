@@ -1,6 +1,11 @@
 import React from 'react'
-import { StyleSheet, View, Image } from 'react-native'
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 import { Movies } from '../interfaces/interfaces';
+import { StackNavigationProp } from '@react-navigation/stack'
+import { useNavigation } from '@react-navigation/native'
+import { RootStackNavegator } from '../navigator/StackNavegator';
+
+type DetailScreenNavigationProp = StackNavigationProp<RootStackNavegator , 'DetailScreen'>
 
 interface Prop {
     Movie:Movies;
@@ -10,8 +15,18 @@ interface Prop {
 export const MovieCard = ( { Movie , size = 'G'  }:Prop ) => {
      
    const uri = `https://image.tmdb.org/t/p/w500/${Movie.poster_path}`
+   const navigation =  useNavigation<DetailScreenNavigationProp>();
 
     return (
+       <TouchableOpacity
+         onPress = {() => navigation.navigate('DetailScreen', Movie )  }
+         activeOpacity = {0.80}
+         style = {{
+             marginHorizontal:5,
+             paddingBottom:10,
+             paddingHorizontal:7
+         }}
+       >
         <View style= {  (size === 'G') ? styles.sizesImgG : styles.sizesImgS  }>
             <View style ={ styles.imgContainer}>
                 <Image
@@ -20,6 +35,7 @@ export const MovieCard = ( { Movie , size = 'G'  }:Prop ) => {
                 />
             </View>
         </View>
+       </TouchableOpacity> 
     )
 }
 
@@ -30,22 +46,23 @@ const styles = StyleSheet.create({
        height:300
    },
    sizesImgS:{
-    width:100,
-    height:150
+    width:150,
+    height:200
    },
    imgContainer:{
        flex:1,
-       shadowColor: "red",
+       shadowColor: 'black',
        shadowOffset: {
-           width: 0,
+           width: 10,
            height: 9,
        },
-       shadowOpacity: 1,
-       shadowRadius: 18.35,   
-       elevation: 25,
+       shadowOpacity: 0.2,
+       shadowRadius: 50,   
+       elevation:9
    },
    img:{
        flex:1,
-       borderRadius:10
+       borderRadius:10,
+       marginHorizontal:5
    }
 });
