@@ -1,11 +1,12 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Cast } from '../interfaces/castInterfaces';
 import { MovieFull } from '../interfaces/interfaces';
 import { colors } from '../screen/appTheme';
 import currencyFormatter from 'currency-formatter';
 import { CardActors } from './CardActors';
+import Carousel from 'react-native-snap-carousel';
 
 
 interface Props {
@@ -16,6 +17,9 @@ interface Props {
 export const MovieDatails = ({ details ,  cast }:Props) => {
 
     const getGender = details?.genres.map(G => G.name );  
+    const { width:windowWidth } = useWindowDimensions();
+    const sizeItem = windowWidth / 1.6;
+
 
     return (
         <View style ={styles.container}>
@@ -55,8 +59,15 @@ export const MovieDatails = ({ details ,  cast }:Props) => {
             </View>
            
            {/* Casting */}
-            <CardActors  actor= { cast[0]} />
-
+           <Text style ={{ fontSize:25, marginBottom:10 }}>
+                Actores
+          </Text>
+           <Carousel
+                    data={cast}
+                    sliderWidth={windowWidth}
+                    itemWidth={ sizeItem }
+                    renderItem ={ ({ item}:any) => <CardActors actor={item} /> }
+                  /> 
         </View>
     )
 }

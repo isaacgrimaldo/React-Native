@@ -1,23 +1,26 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useContext } from 'react'
-import { Text, View, ScrollView, Image, Dimensions, StyleSheet, MaskedViewComponent, ActivityIndicator } from 'react-native';
+import React from 'react'
+import { Text, View, ScrollView, Image, Dimensions, StyleSheet, ActivityIndicator, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { RootStackNavegator } from '../navigator/StackNavegator';
-import Icon from 'react-native-vector-icons/Ionicons';
+import  Icon  from 'react-native-vector-icons/Ionicons';
+
+
 import { MovieDatails } from './../components/MovieDatails';
 import { useMovieDetails } from '../hooks/useMovieDetails';
 import { colors } from './appTheme';
+
 
 
 interface Props extends StackScreenProps <RootStackNavegator , 'DetailScreen'> {};
 
 const heightScreen = Dimensions.get('window').height;
 
-export const DetailScreen = ({ route }:Props) => {
+export const DetailScreen = ({ route , navigation }:Props) => {
     
 
     const movie = route.params
-    const uri = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-     
+    const uri = `https://image.tmdb.org/t/p/w500/${movie.poster_path}` 
+    
     const { movieFull,  cast, islodding }  = useMovieDetails(movie.id);
     
     return (
@@ -36,9 +39,20 @@ export const DetailScreen = ({ route }:Props) => {
             {
                 (islodding )
                 ? <ActivityIndicator color={colors.secondrfi} size ={100} />
-                : < MovieDatails details ={movieFull}  cast ={ cast }   />
+                : <MovieDatails cast ={cast} details ={movieFull}/>
             }
 
+          {/*back button*/}
+          <View style = {styles.backButton}
+             onResponderMove = { e =>  console.log(e)}
+          >
+            <TouchableOpacity
+               activeOpacity={.25}
+               onPress = { () => navigation.goBack() }
+            >
+               <Icon name='arrow-undo'size={50} color={'white'} />
+            </TouchableOpacity>        
+          </View> 
         </ScrollView>
     )
 }
@@ -65,6 +79,16 @@ const styles = StyleSheet.create({
     contaierInfo:{
         marginHorizontal:10,
         marginVertical:10
+    },
+    backButton:{
+      position:'absolute',
+      zIndex:50,
+      elevation:15,
+      top:10,
+      left:20,
+      padding:10,
+      borderRadius:50,
+      backgroundColor:colors.primary,
+      
     }
-    
 });
