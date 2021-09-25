@@ -36,7 +36,6 @@ export const useMovies = () => {
              valueupComing
          ]);
            
-         console.log(resp);
          setlistMovies({
              playNow: resp[0].results,
              popular: resp[1].results,
