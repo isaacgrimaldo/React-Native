@@ -1,9 +1,10 @@
 import 'react-native-gesture-handler';
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar , SafeAreaView } from 'react-native';
+import { StatusBar } from 'react-native';
 import { StackNavegator } from './src/navigator/StackNavegator';
 import { MovieProvider } from './src/contexts/MoviesContexts';
+// import { FadeScreen } from './src/screen/FadeScreen';
 
 const App = () => {
   return (
@@ -14,7 +15,8 @@ const App = () => {
         backgroundColor ='black'
       />
       <AppState>
-         <StackNavegator/>
+           <StackNavegator/>
+          {/* <FadeScreen/> */}
       </AppState>
     </NavigationContainer>
   )

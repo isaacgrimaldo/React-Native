@@ -23,7 +23,7 @@ export const MovieDatails = ({ details ,  cast }:Props) => {
 
     return (
         <View style ={styles.container}>
-           
+    
            {/* statu */}
            <View style ={ styles.containerVotes}>
                <Text style ={{fontSize:15}} >

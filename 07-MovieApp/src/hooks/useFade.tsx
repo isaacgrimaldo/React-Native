@@ -1,0 +1,35 @@
+import { useRef } from "react"
+import { Animated } from "react-native"
+
+export const useFade = () => {
+    const  opacity = useRef( new Animated.Value( 0 ) ).current;
+
+    const fadeIn = () => {
+        Animated.timing(
+            opacity,
+            {
+                toValue:1,
+                duration: 2000,
+                useNativeDriver:true
+            }
+        ).start()
+   }
+
+   const fadeOut = () => {
+         Animated.timing(
+             opacity,
+             {
+                 toValue:0,
+                 duration:2500,
+                 useNativeDriver:true,
+                 delay:200
+             }
+         ).start()
+   }
+   
+   return  {
+       fadeIn,
+       fadeOut,
+       opacity
+   }
+} 

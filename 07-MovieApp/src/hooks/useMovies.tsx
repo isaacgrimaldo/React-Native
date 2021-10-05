@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+
 import moviesDB from "../api/MoviesDB";
 import { Movies, MoviesDBResponse } from '../interfaces/interfaces'
+
 
 interface ListMovies {
     playNow:Movies[];
@@ -11,7 +13,7 @@ interface ListMovies {
 
 export const useMovies = () => {
     
-   const [listMovies, setlistMovies] = useState<ListMovies>({
+    const [listMovies, setlistMovies] = useState<ListMovies>({
     playNow:[],
     popular:[],
     topRated:[],
@@ -26,7 +28,7 @@ export const useMovies = () => {
     const valuepopular =   (await moviesDB.get<MoviesDBResponse>('/popular')).data;
     const valuetopRated =  (await moviesDB.get<MoviesDBResponse>('/top_rated')).data; 
     const valueupComing =  (await moviesDB.get<MoviesDBResponse>('/upcoming')).data;
-       
+    
     try {
         
          const resp = await Promise.all([
@@ -53,6 +55,7 @@ export const useMovies = () => {
     useEffect(() => {
         getMovies();             
     },[])
+
     
     return{
         ...listMovies,

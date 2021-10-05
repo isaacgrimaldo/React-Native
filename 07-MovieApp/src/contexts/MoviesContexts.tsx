@@ -1,6 +1,6 @@
 import React ,  {  createContext, useReducer } from "react";
 import { MovieFull } from "../interfaces/interfaces";
-import { moviesReducer } from './moviesReducer';
+import { colorsReducer } from './colorsReducer';
 
  export interface MovieDetail {
    movieFull:MovieFull | undefined ,
@@ -11,26 +11,43 @@ import { moviesReducer } from './moviesReducer';
 //     movieDetails:MovieDetail
 // };
 
-export const initialMovieDetails:MovieDetail = {
-        movieFull:undefined,
-        islodding:false
+export interface GrandientColors {
+    primaryColor:string ; 
+    sencundaryColor:string ;
+    prePrimaryColor:string;
+    perSecColor:string;
+}
+
+export const initialGradientColors:GrandientColors = {
+        primaryColor:'transparent',
+        sencundaryColor:'transparent',
+        prePrimaryColor:'transparent',
+        perSecColor:'transparent',
 };
 
-export interface MovieStateContextProps {
-     movieState:MovieDetail,
+export interface GrandientContextProps {
+      grandientColors: GrandientColors,
+      getGradientColors: () => void;
+      setGradientColors:(payload:GrandientColors) => void;
 };
 
 
-export const MoviesContext = createContext( {} as MovieStateContextProps );
+export const MoviesContext = createContext( {} as GrandientContextProps );
 
 export const MovieProvider = ({ children }:{children: JSX.Element}) => {
     
-   const [ movieState , dispatch] = useReducer( moviesReducer , initialMovieDetails)
+   const [ grandientColors , dispatch] = useReducer( colorsReducer , initialGradientColors)
+     
+   const getGradientColors = () => dispatch ({type:'get'});
+
+   const setGradientColors = (payload:GrandientColors) => {dispatch({type:'set',payload})}
 
     return(
         <MoviesContext.Provider
            value ={ {
-                movieState
+              grandientColors,
+              setGradientColors,
+              getGradientColors,  
            }}
         >
             {  children }

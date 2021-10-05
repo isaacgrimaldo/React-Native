@@ -8,7 +8,7 @@ enum Operations{
 
 export const useCalculadora = () => {
     
-    const [number, setnumber] = useState('100');
+    const [number, setnumber] = useState('0');
     const [lastNumber, setlastNumber] = useState('0')
     const operation = useRef<Operations>( );
     
